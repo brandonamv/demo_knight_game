@@ -100,6 +100,21 @@ function init() {
 
 }
 
+//open menu
+document.onkeydown = function (e) {
+	if (e.key == "Escape") {
+		const div = document.getElementById("menu"); 
+	
+		var span = document.getElementById("close");
+
+		div.style.visibility = "visible"
+
+		span.onclick = function() {
+			div.style.visibility = "hidden"
+		}
+	}
+}
+
 function onWindowResize() {
 
 	camera.aspect = window.innerWidth / window.innerHeight;
@@ -114,24 +129,6 @@ function animate() {
 	requestAnimationFrame( animate );
 	render();
 
-}
-
-//open menu
-document.onkeydown = function (e) {
-	if (e.key == "Escape") {
-		const div = document.getElementById("menu"); 
-	
-		var span = document.getElementById("close");
-
-		div.innerHTML = "<div class='modal-content'>"+
-							"<span id='close' class='close'>&times;</span>"+
-							"<p style='color: black;'>Menu</p>"+
-						"</div>"
-
-		span.onclick = function() {
-			console.log("cerrar");
-		}
-	}
 }
 
 function render() {
