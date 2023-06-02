@@ -25,8 +25,28 @@
 			<div class='modal-content'>
 				<span id='close' class='close'>&times;</span>
 				<p style='color: black;'>Coloca lo que quieras aqui </p>
+				<script type="module" src="./configuracion.js"></script>
+				
+				<!-- componente de configuracion -->
+				<!-- llamo la funcion para obtener el estado del checkbox y se lo asigno al parametro shadow  -->
+				<configuracion-prueba shadow="inputShadow()" fog="1"></configuracion-prueba>
+
+				<label style="color: black;">Cast Shadow</label><input type="checkbox" onclick="inputShadow()" id="shadow">
+				<br>
+				<label style="color: black;">Fog</label><input type="range" min="1" max="100" value="1" id="myRange">
+
 			</div>
 		</div>
+
+		<script>
+			let shadow = true
+			function inputShadow() {
+				let data = document.getElementById("shadow").checked
+				shadow = data
+				//console.log("shadow",shadow);
+				return(shadow)
+			}
+		</script>
 
 		<script type="module" src="index.js"></script>
 

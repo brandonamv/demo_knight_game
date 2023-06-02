@@ -3,6 +3,10 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import Stats from 'three/addons/libs/stats.module.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
+import * as confi from './configuracion.js'//importo el modulo de configuracion
+
+console.log("data exportada: ",confi);
+
 let container, stats;
 let camera, scene, renderer;
 let pointLight;
@@ -29,7 +33,17 @@ function init() {
 
 	//lights
 	const ambient = new THREE.AmbientLight( 0xffffff );
+	ambient.isLight = shadow
 	scene.add( ambient );
+
+	const directional = new THREE.DirectionalLight( 0xffffff );
+
+	//Aqui para activar o desactivar las sombras
+	directional.castShadow = shadow;
+
+	//console.log("castShadow: ",directional.castShadow);
+
+	scene.add( directional );
 
 	pointLight = new THREE.PointLight( 0xffffff, 2 );
 	scene.add( pointLight );
@@ -42,15 +56,15 @@ function init() {
 
 		const soldier = gltf.scene;
 		soldier.scale.set(200, 200, 200);
-		soldier.traverse(function (object) {
-			if (object.isMesh) object.castShadow = true;
-		});
+
+		soldier.castShadow = true
+
 		scene.add(soldier);
 
 		const clips = gltf.animations;
 		const mixer = new THREE.AnimationMixer( soldier );
 
-		console.log(clips);
+		//console.log(clips);
 
 		const runClip = THREE.AnimationClip.findByName( clips, 'Run' );
 		const runAction = mixer.clipAction( runClip );
@@ -77,6 +91,7 @@ function init() {
 	const plane = new THREE.Mesh( geometryFloor, materialFloor );
 	plane.scale.set(2500,2500,2500)
 	plane.rotation.x = - Math.PI / 2;
+	plane.receiveShadow = true;
 	scene.add( plane );
 
 	//renderer
@@ -114,6 +129,8 @@ document.onkeydown = function (e) {
 		}
 	}
 }
+
+
 
 function onWindowResize() {
 
