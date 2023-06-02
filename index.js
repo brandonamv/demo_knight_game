@@ -3,13 +3,14 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import Stats from 'three/addons/libs/stats.module.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-import * as confi from './configuracion.js'//importo el modulo de configuracion
-
-console.log("data exportada: ",confi);
+import * as config from './configuracion.js'//importo el modulo de configuracion
+config.init();
+console.log("data exportada: ",config.config);
 
 let container, stats;
 let camera, scene, renderer;
 let pointLight;
+let shadow = true
 
 scene = new THREE.Scene();
 
@@ -131,7 +132,13 @@ document.onkeydown = function (e) {
 }
 
 
-
+function inputShadow() {
+	let data = document.getElementById("shadow").checked
+	shadow = data
+	console.log("shadow",shadow);
+	return(shadow)
+}
+window.inputShadow=config.config;
 function onWindowResize() {
 
 	camera.aspect = window.innerWidth / window.innerHeight;

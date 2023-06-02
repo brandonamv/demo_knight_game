@@ -1,20 +1,30 @@
-export class configuracion extends HTMLElement{
+class configuracion extends HTMLElement{
     constructor(){
         super();
         /* variables de configuraciones */
-        this.shadow = true;
+        this.shadow;
         this.fog;
     }
 
     castShadow = true
 
+	connectedCallback(){
+		this.innerHTML=`
+		<label style="color: black;">Cast Shadow</label>
+		<input type="checkbox" id="shadow" checked=${this.shadow}>
+		<br>
+		<label style="color: black;">Fog</label>
+		<input type="range" min="1" max="100" value="1" id="myRange"></input>
+		`
+	}
     //este es el get de los parametros
-    static get observerAttributes(){
+    static get observedAttributes(){
         return['shadow', 'fog']
     }
 
     //funcion para cambiar el valor de las variables de configuraciones
-    attibuteChangeCallback(shadowAtr, newValue){
+    attributeChangedCallback(shadowAtr,oldValue, newValue){
+		console.log(shadowAtr, newValue);
         switch (shadowAtr) {
             case "shadow":
                 this.shadow = newValue
@@ -33,5 +43,11 @@ export class configuracion extends HTMLElement{
 
 }
 
+var config;
 
-window.customElements.define("configuracion-prueba", configuracion)
+window.customElements.define("configuracion-prueba", configuracion);
+
+function init() {
+	config=new configuracion();
+}
+export {config,init};
