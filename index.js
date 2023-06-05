@@ -25,8 +25,8 @@ document.getElementById("fogFar").addEventListener("click", fogFarUpdate);
 function shadowUpdate() {
 	let data = document.getElementById("shadow").checked//capturo el estado del checkbox
 	shadow = data //lo igualo a la variable con el estado de la sombra
-	ambient.castShadow = shadow
-	console.log("shadow:", shadow);
+	directional.castShadow = shadow
+	console.log("directional.castShadow:", directional.castShadow);
 	
 }
 
@@ -55,6 +55,15 @@ const ambient = new THREE.AmbientLight( 0xffffff );
 ambient.castShadow = true
 scene.add( ambient );
 
+const directional = new THREE.DirectionalLight( "#4d191a", 20 );
+
+//Aqui para activar o desactivar las sombras
+directional.castShadow = true;
+directional.position.y = 1000
+directional.position.x = 1000
+directional.castShadow = true
+scene.add( directional );
+
 function init() {
 
 	container = document.createElement( 'div' );
@@ -67,18 +76,6 @@ function init() {
 
 	//background
 	scene.background = null;
-
-	const directional = new THREE.DirectionalLight( "#4d191a", 20 );
-
-	//Aqui para activar o desactivar las sombras
-	directional.castShadow = true;
-	directional.position.y = 1000
-	directional.position.x = 1000
-	directional.castShadow = true
-
-	//console.log("castShadow: ",directional.castShadow);
-
-	scene.add( directional );
 
 	/* pointLight = new THREE.PointLight( 0xffffff, 2 );
 	scene.add( pointLight ); */
