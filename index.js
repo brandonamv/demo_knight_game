@@ -3,14 +3,24 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import Stats from 'three/addons/libs/stats.module.js';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
-import * as config from './configuracion.js'//importo el modulo de configuracion
+/* import * as config from './configuracion.js'//importo el modulo de configuracion
 config.init();
-console.log("data exportada: ",config.config);
+console.log("data exportada: ",config.config); */
 
 let container, stats;
 let camera, scene, renderer;
 let pointLight;
+
+//variable de la sombra
 let shadow = true
+//listenin del evento click del checkbox
+document.getElementById("shadow").addEventListener("click", prueba);//siempre que hace click corre una funcion
+
+function prueba() {
+	let data = document.getElementById("shadow").checked//capturo el estado del checkbox
+	shadow = data //lo igualo a la variable con el estado de la sombra
+	console.log("shadow:", shadow);
+}
 
 scene = new THREE.Scene();
 
@@ -138,7 +148,7 @@ function inputShadow() {
 	console.log("shadow",shadow);
 	return(shadow)
 }
-window.inputShadow=config.config;
+window.inputShadow=true;
 function onWindowResize() {
 
 	camera.aspect = window.innerWidth / window.innerHeight;
