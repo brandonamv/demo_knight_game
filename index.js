@@ -11,6 +11,8 @@ let container, stats;
 let camera, scene, renderer;
 let pointLight;
 
+let resolution = 1
+
 //variable de la sombra
 let shadow = true
 //listenin del evento click del checkbox
@@ -21,6 +23,25 @@ document.getElementById("fogNear").addEventListener("click", fogNearUpdate);
 
 //listenin del evento click del slider del fog far
 document.getElementById("fogFar").addEventListener("click", fogFarUpdate);
+
+//listenin del evento click del boton de resolucion bajo
+document.getElementById("baja").addEventListener("click", resolutionBaja);
+
+//listenin del evento click del boton de resolucion media
+document.getElementById("media").addEventListener("click", resolutionMedia);
+
+//listenin del evento click del boton de resolucion alta
+document.getElementById("alta").addEventListener("click", resolutionAlta);
+
+function resolutionBaja() {//baja al render para ver el renderer.setPixelRatio que es donde se hace el cambio
+	resolution = 0.5
+}
+function resolutionMedia() {
+	resolution = 1
+}
+function resolutionAlta() {
+	resolution = 2
+}
 
 function shadowUpdate() {
 	let data = document.getElementById("shadow").checked//capturo el estado del checkbox
@@ -189,6 +210,7 @@ function animate() {
 function render() {
 
 	renderer.render( scene, camera );
+	renderer.setPixelRatio(window.devicePixelRatio * resolution);
 	stats.update();
 
 }

@@ -16,6 +16,13 @@ class configuracion extends HTMLElement{
 		<input type="range" id="fogNear" min="1" max="100" value="10" id="myRange"></input>
         <label style="color: black;">far</label>
 		<input type="range" id="fogFar" min="1" max="100" value="1" id="myRange"></input>
+        <br>
+        <label style="color: black;">Resolution:</label> 
+        <label style="color: black;">Resolucion predeterminada Media</label>
+        <br>
+        <button id="baja">Baja</button>
+        <button id="media">Media</button>
+        <button id="alta">Alta</button>
 		`
 	}
     //este es el get de los parametros
