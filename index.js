@@ -14,20 +14,46 @@ let pointLight;
 //variable de la sombra
 let shadow = true
 //listenin del evento click del checkbox
-document.getElementById("shadow").addEventListener("click", prueba);//siempre que hace click corre una funcion
+document.getElementById("shadow").addEventListener("click", shadowUpdate);//siempre que hace click corre una funcion
 
-function prueba() {
+//listenin del evento click del slider del fog near
+document.getElementById("fogNear").addEventListener("click", fogNearUpdate);
+
+//listenin del evento click del slider del fog far
+document.getElementById("fogFar").addEventListener("click", fogFarUpdate);
+
+function shadowUpdate() {
 	let data = document.getElementById("shadow").checked//capturo el estado del checkbox
 	shadow = data //lo igualo a la variable con el estado de la sombra
+	ambient.castShadow = shadow
 	console.log("shadow:", shadow);
+	
+}
+
+function fogNearUpdate() {
+	let data = document.getElementById("fogNear").value
+	fog.near = data
+	console.log("fogNear:", fog.near);
+}
+function fogFarUpdate() {
+	let data = document.getElementById("fogFar").value
+	fog.far = data
+	console.log("fogFar:", fog.far);
 }
 
 scene = new THREE.Scene();
+
+let fog = scene.fog = new THREE.Fog( 0xcccccc, 10, 1 );
 
 var loader = new GLTFLoader();
 
 init();
 animate();
+
+//lights
+const ambient = new THREE.AmbientLight( 0xffffff );
+ambient.castShadow = true
+scene.add( ambient );
 
 function init() {
 
@@ -42,22 +68,20 @@ function init() {
 	//background
 	scene.background = null;
 
-	//lights
-	const ambient = new THREE.AmbientLight( 0xffffff );
-	ambient.isLight = shadow
-	scene.add( ambient );
-
-	const directional = new THREE.DirectionalLight( 0xffffff );
+	const directional = new THREE.DirectionalLight( "#4d191a", 20 );
 
 	//Aqui para activar o desactivar las sombras
-	directional.castShadow = shadow;
+	directional.castShadow = true;
+	directional.position.y = 1000
+	directional.position.x = 1000
+	directional.castShadow = true
 
 	//console.log("castShadow: ",directional.castShadow);
 
 	scene.add( directional );
 
-	pointLight = new THREE.PointLight( 0xffffff, 2 );
-	scene.add( pointLight );
+	/* pointLight = new THREE.PointLight( 0xffffff, 2 );
+	scene.add( pointLight ); */
 
 	//models
 	loader.load( './models/Soldier.glb', function ( gltf )

@@ -11,8 +11,11 @@ class configuracion extends HTMLElement{
 		<label style="color: black;">Cast Shadow</label>
 		<input type="checkbox" id="shadow" checked>
 		<br>
-		<label style="color: black;">Fog</label>
-		<input type="range" id="fog" min="1" max="100" value="1" id="myRange"></input>
+        <h3 style="color: black;">FOG</h3>
+		<label style="color: black;">near</label>
+		<input type="range" id="fogNear" min="1" max="100" value="10" id="myRange"></input>
+        <label style="color: black;">far</label>
+		<input type="range" id="fogFar" min="1" max="100" value="1" id="myRange"></input>
 		`
 	}
     //este es el get de los parametros
