@@ -16,11 +16,12 @@ export function Soldier_model(props) {
 
   const group = useRef()
 
-  const { nodes, materials, animations } = useGLTF('./models/soldier/Soldier.glb')
+  const { nodes, materials, animations } = useGLTF('./models/soldier/Soldier.glb')//aqui esta la data del modelo
 
   const { actions } = useAnimations(animations, group) //aqui estas las animaciones del modelo
 
   return (
+    /* aqui se construlle el modelo con los datos optenidos antes */
     <group ref={group} {...props} dispose={null}>
       <group name="Scene">
         <group name="Character" rotation={[-Math.PI / 2, 0, 0]} scale={0.01}>
@@ -33,6 +34,6 @@ export function Soldier_model(props) {
   )
 }
 
-useGLTF.preload('./models/soldier/Soldier.glb')
+useGLTF.preload('./models/soldier/Soldier.glb')//pre carga del modelo
 
 export default Soldier_model
