@@ -9,7 +9,7 @@ para generar la plantilla base del modelo automaticamente
 despues la modificas o comfiguras como quieras
 */
 
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
 
 export function Soldier_model(props) {
@@ -19,6 +19,12 @@ export function Soldier_model(props) {
   const { nodes, materials, animations } = useGLTF('./models/soldier/Soldier.glb')//aqui esta la data del modelo
 
   const { actions } = useAnimations(animations, group) //aqui estas las animaciones del modelo
+
+  //Uso de animaciones
+  useEffect(() =>{
+    console.log(actions);
+    actions.Idle.play()
+  });
 
   return (
     /* aqui se construlle el modelo con los datos optenidos antes */
